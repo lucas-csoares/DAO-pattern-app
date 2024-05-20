@@ -3,7 +3,7 @@ package model.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
-// Implementar Serializable é importante para que os objetos sejam transformados em sequência de Bytes
+// Implementar Serializable é importante para que os objetos Java sejam transformados em sequência de Bytes, de forma que o objeto possa ser gravado em arquivo ou trafegado em rede
 public class Department implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
