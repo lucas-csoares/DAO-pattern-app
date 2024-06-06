@@ -19,7 +19,7 @@ import model.entities.Seller;
  */
 public class SellerDaoJDBC implements SellerDao{
 	
-	private Connection conn;
+	private final Connection conn;
 	
 	public SellerDaoJDBC(Connection conn) {
 		this.conn = conn;
@@ -43,6 +43,11 @@ public class SellerDaoJDBC implements SellerDao{
 		
 	}
 
+	/**
+	 *
+	 * @param id
+	 * @return
+	 */
 	@Override
 	public Seller findById(Integer id) {
 		PreparedStatement st = null;
@@ -57,21 +62,9 @@ public class SellerDaoJDBC implements SellerDao{
 			rs = st.executeQuery();
 			
 			//Se a consulta não conter registro, next retorna falso
-			if(rs.next()) {
-				Department dep = new Department();
-				//Passa o nome da coluna do banco
-				dep.setId(rs.getInt("DepartmentId")); 
-				dep.setName(rs.getString("DepName"));
-				
-				Seller sell = new Seller();
-				sell.setId(rs.getInt("Id"));
-				sell.setEmail(rs.getString("Email"));
-				sell.setName(rs.getString("Name"));
-				sell.setBaseSalary(rs.getDouble("BaseSalary"));
-				sell.setBirthDate(rs.getDate("BirthDate"));
-				sell.setDepartment(dep);
-				return sell;
-			}
+			if(rs.next())
+				return istantiateSeller(rs, instantiateDepartment(rs));
+
 			return null;
 			
 		} catch(SQLException error) {
@@ -83,6 +76,30 @@ public class SellerDaoJDBC implements SellerDao{
 		}
 		
 		
+	}
+
+	private Seller istantiateSeller (ResultSet rs, Department dep) throws SQLException {
+		Seller sell = new Seller();
+		sell.setId(rs.getInt("Id"));
+		sell.setEmail(rs.getString("Email"));
+		sell.setName(rs.getString("Name"));
+		sell.setBaseSalary(rs.getDouble("BaseSalary"));
+		sell.setBirthDate(rs.getDate("BirthDate"));
+		sell.setDepartment(dep);
+		return sell;
+	}
+
+	/**
+	 * Método que instancia um departamento
+	 * @param rs
+	 * @return
+	 * @throws SQLException (propapação)
+	 */
+	private Department instantiateDepartment (ResultSet rs) throws SQLException {
+		Department dep = new Department();
+		dep.setId(rs.getInt("DepartmentId")); //Passa o nome da coluna do banco
+		dep.setName(rs.getString("DepName"));
+		return dep;
 	}
 
 	@Override
