@@ -36,10 +36,16 @@ public class Program {
 		
 		
 		System.out.println ("\n>>> TESTE 5: seller UPDATE <<<");
-		seller = sellerDao.findById(1);
+		seller = sellerDao.findById(4);
 		seller.setName("Silvano Silveira Soares");
 		sellerDao.update(seller);
 		System.out.println("Update completed!");
+		
+		
+		System.out.println ("\n>>> TESTE 6: seller DELETE <<<");
+		sellerDao.deleteById(25);
+		System.out.println("Delete completed!");
+		
 		
 	}
 
