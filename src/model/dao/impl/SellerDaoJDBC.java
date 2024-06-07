@@ -72,9 +72,6 @@ public class SellerDaoJDBC implements SellerDao{
 	@Override
 	public void update(Seller obj) {
 		PreparedStatement st = null;
-//		if(findById(obj.getId()) != null) {
-//			
-//		}
 		try {
 			st = conn.prepareStatement(
 					"UPDATE seller "
