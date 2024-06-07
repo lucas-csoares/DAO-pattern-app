@@ -8,7 +8,7 @@ import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
 
-public class Program {
+public class Program1 {
 
 	public static void main(String[] args) {
 		SellerDao sellerDao = DaoFactory.createSellerDao();
@@ -45,6 +45,9 @@ public class Program {
 		System.out.println ("\n>>> TESTE 6: seller DELETE <<<");
 		sellerDao.deleteById(25);
 		System.out.println("Delete completed!");
+		
+		
+		
 		
 		
 	}
